@@ -3,20 +3,6 @@ import classes from "./Button.module.css";
 const Button = (props) => {
   const keyboardHandler = () => {};
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (props.allkeys.includes(e.key)) {
-        console.log(e.key);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
   return (
     <button
       className={classes.keyboard_button}
