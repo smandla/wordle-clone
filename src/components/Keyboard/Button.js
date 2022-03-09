@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import classes from "./Button.module.css";
 const Button = (props) => {
-  const keyboardHandler = () => {};
+  const keyboardHandler = (key) => {
+    const pressedKey = key.target.outerText.toLowerCase();
+    console.log(pressedKey);
+    props.enterGuess(pressedKey);
+    // console.log(key.target.outerText);
+  };
 
   return (
     <button

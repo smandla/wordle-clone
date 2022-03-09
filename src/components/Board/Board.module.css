@@ -48,3 +48,13 @@
     }
   }} */
 }
+
+.game_tile[hint="green"] {
+  background-color: green;
+}
+.game_tile[hint="grey"] {
+  background-color: grey;
+}
+.game_tile[hint="yellow"] {
+  background-color: orange;
+}

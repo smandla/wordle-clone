@@ -6,13 +6,12 @@ function App() {
   const keyboard = [
     ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
     ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-    ["Enter", "z", "x", "c", "v", "b", "n", "m", "backspace"],
+    ["enter", "z", "x", "c", "v", "b", "n", "m", "backspace"],
   ];
   const allkeys = keyboard.flat();
   return (
     <div className="App">
       <Board allkeys={allkeys} />
-      {/* <Keyboard /> */}
     </div>
   );
 }

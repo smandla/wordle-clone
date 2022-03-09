@@ -6,7 +6,12 @@ const Row = (props) => {
   const rows = props.keyboardRow.map((row) => {
     // console.log("button", row);
     return (
-      <Button key={row} value={row} allkeys={props.allKeys}>
+      <Button
+        key={row}
+        value={row}
+        allkeys={props.allKeys}
+        enterGuess={props.enterGuess}
+      >
         {row}
       </Button>
     );
