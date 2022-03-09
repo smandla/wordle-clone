@@ -1,0 +1,8 @@
+.keyboard_row {
+  width: 100%;
+  margin: 0 auto 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

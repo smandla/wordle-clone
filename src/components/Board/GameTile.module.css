@@ -1,0 +1,10 @@
+.game_tile {
+  border: 1px solid #ccc;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.4rem;
+  color: #ccc;
+  line-height: 3.2rem;
+  text-transform: uppercase;
+}
