@@ -144,7 +144,7 @@ const Board = (props) => {
    * SUBMIT
    */
   const submit = async () => {
-    // console.log(random);
+    console.log(random);
     // let data = randomWord;
     // console.log(data);
     const _round = round.current;
