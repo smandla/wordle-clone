@@ -10,7 +10,10 @@ const Keyboard = (props) => {
   ];
   const allkeys = keyboard.flat();
   //   console.log(allkeys);
-  const createRows = keyboard.map((row) => {
+  const createRows = keyboard.map((row, index) => {
+    // console.log(index, row);
+    if (index === 1) {
+    }
     // console.log("row", row);
     return (
       <Row
@@ -18,6 +21,8 @@ const Keyboard = (props) => {
         allKeys={allkeys}
         key={row}
         enterGuess={props.enterGuess}
+        index={index}
+        // style={{ width: index === 1 ? "75%" : "100%" }}
       />
     );
   });

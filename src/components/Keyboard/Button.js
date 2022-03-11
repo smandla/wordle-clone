@@ -3,7 +3,7 @@ import classes from "./Button.module.css";
 const Button = (props) => {
   const keyboardHandler = (key) => {
     const pressedKey = key.target.outerText.toLowerCase();
-    console.log(pressedKey);
+    // console.log(pressedKey);
     props.enterGuess(pressedKey);
     // console.log(key.target.outerText);
   };
@@ -12,7 +12,7 @@ const Button = (props) => {
     <button
       className={classes.keyboard_button}
       onClick={keyboardHandler}
-      key={props.key}
+      // key={props.key}
     >
       {props.children}
     </button>

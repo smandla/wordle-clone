@@ -4,6 +4,7 @@ import Button from "./Button";
 const Row = (props) => {
   //   console.log("row js ", props.key);
   const rows = props.keyboardRow.map((row) => {
+    // console.log(props.index);
     // console.log("button", row);
     return (
       <Button
@@ -17,7 +18,11 @@ const Row = (props) => {
     );
   });
 
-  return <div className={classes.keyboard_row}>{rows}</div>;
+  return (
+    <div className={classes.keyboard_row} index={props.index}>
+      {rows}
+    </div>
+  );
 };
 
 export default Row;

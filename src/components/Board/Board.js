@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import classes from "./Board.module.css";
 import Keyboard from "../Keyboard/Keyboard";
+import Modal from "../Modal/Modal";
+import Dictionary from "../../Data/Dictionary.txt";
 // import Game?Tile from "./GameTile";
 // import GameRow from "./GameRow";
 
@@ -18,25 +20,22 @@ const fetchData = (word) => {
     .then((data) => data)
     .catch((err) => console.log(err));
 };
+// let wordle = "";
+// const getRandomWord = async () => {
+//   const res = await fetch(Dictionary, {
+//     method: "GET",
+//   });
+//   const data = (await res.text()).split("\n");
+//   // console.log(data[Math.floor(Math.random() * data.length)]);
+//   // console.log(data);
+//   const randomWord = data[
+//     Math.floor(Math.random() * data.length)
+//   ].toLowerCase();
+//   console.log(randomWord);
+//   return randomWord;
+// };
+// wordle = getRandomWord();
 
-/**
- * 
- * fetch(url).then((response) => {
-  if (response.ok) {
-    return response.json();
-  }
-  throw new Error('Something went wrong');
-})
-.then((responseJson) => {
-  // Do something with the response
-})
-.catch((error) => {
-  console.log(error)
-});
- * 
- * 
- */
-// https: const fetchData s= () => {};
 const newGame = {
   0: Array.from({ length: 5 }).fill(""),
   1: Array.from({ length: 5 }).fill(""),
@@ -45,26 +44,114 @@ const newGame = {
   4: Array.from({ length: 5 }).fill(""),
   5: Array.from({ length: 5 }).fill(""),
 };
+// console.log(wordle);
+
 const Board = (props) => {
-  const guessWord = "empty";
   let letterIndex = useRef(0);
   let round = useRef(0);
+  const randomWord = [
+    "Abuse",
+    "Adult",
+    "Agent",
+    "Anger",
+    "Apple",
+    "Award",
+    "Basis",
+    "Beach",
+    "Birth",
+    "Block",
+    "Blood",
+    "Board",
+    "Brain",
+    "Bread",
+    "Break",
+    "Brown",
+    "Buyer",
+    "Cause",
+    "Chain",
+    "Chair",
+    "Chest",
+    "Chief",
+    "Child",
+    "China",
+    "Claim",
+    "Class",
+    "Clock",
+    "Coach",
+    "Coast",
+    "Court",
+    "Cover",
+    "Cream",
+    "Crime",
+    "Cross",
+    "Crowd",
+    "Crown",
+    "Cycle",
+    "Dance",
+    "Death",
+    "Depth",
+    "Doubt",
+    "Draft",
+    "Drama",
+    "Dream",
+    "Dress",
+    "Drink",
+    "Drive",
+    "Earth",
+    "Enemy",
+    "Entry",
+    "Error",
+    "Event",
+    "Faith",
+    "Fault",
+    "Field",
+    "Fight",
+    "Final",
+    "Floor",
+    "Focus",
+    "Force",
+    "Frame",
+    "Frank",
+    "Front",
+    "Fruit",
+  ];
+  const word = randomWord[
+    Math.floor(Math.random() * randomWord.length)
+  ].toLowerCase();
+  const random = word;
   const numGuesses = [0, 1, 2, 3, 4, 5];
+  // const [word, setWord] = useState();
   const [guesses, setGuesses] = useState({ ...newGame });
   const [markers, setMarkers] = useState({
-    0: Array.from({ length: 5 }).fill(" "),
+    0: Array.from({ length: 5 }).fill(""),
     1: Array.from({ length: 5 }).fill(""),
     2: Array.from({ length: 5 }).fill(""),
     3: Array.from({ length: 5 }).fill(""),
     4: Array.from({ length: 5 }).fill(""),
     5: Array.from({ length: 5 }).fill(""),
   });
+  const [showModal, setShowModal] = useState(false);
+  // useEffect(() => {
+  //   getRandomWord()
+  //     .then((response) => response)
+  //     .then((data) => setWord(data));
 
-  const submit = () => {
+  //   // randomWord();
+  // }, []);
+  // console.log(word);
+  // const random = word;
+  /**
+   * SUBMIT
+   */
+  const submit = async () => {
+    // console.log(random);
+    // let data = randomWord;
+    // console.log(data);
     const _round = round.current;
     const updatedMarkers = { ...markers };
-
-    const tempWord = guessWord.split("");
+    // console.log(guessedWord);
+    const tempWord = random.split("");
+    // console.log(tempWord);
     let leftover = [];
     tempWord.forEach((letter, index) => {
       const guessed = guesses[_round][index];
@@ -83,19 +170,13 @@ const Board = (props) => {
     //only  for ones  that  are right
     if (updatedMarkers[_round].every((guess) => guess === "green")) {
       setMarkers(updatedMarkers);
+      setShowModal(true);
       return;
     }
-    // console.log(leftover);
-    // console.log(leftover.length);
     if (leftover.length) {
-      // console.log("leftover");
       leftover.forEach((index) => {
         const guessed = guesses[_round][index];
-        // console.log("guessed", guessed);
-        // console.log(tempWord);
         const correctPos = tempWord.indexOf(guessed);
-        // console.log("correctPos", correctPos);
-        // console.log("index", index);
         if (tempWord.includes(guessed) && correctPos !== index) {
           updatedMarkers[_round][index] = "yellow";
           tempWord[correctPos] = "";
@@ -108,9 +189,8 @@ const Board = (props) => {
     round.current = _round + 1;
     //reset letterIndex = 0 to restart guessing
     letterIndex.current = 0;
-    // console.log(pressedLetter);
   };
-  const remove = (pressedLetter) => {
+  const remove = () => {
     // console.log("REMOVE");
     // console.log(pressedLetter);
     const _letterIndex = letterIndex.current;
@@ -142,17 +222,20 @@ const Board = (props) => {
       letterIndex.current = _letterIndex + 1;
     }
   };
+
   // console.log(guesses);
   const enterGuess = async (pressedLetter) => {
-    console.log("u", guesses[round.current]);
+    // console.log("ACTUA", randomWord);
+    // console.log("u", guesses[round.current]);
     //check to see if word entered is valid
-    console.log("pressedLetter", pressedLetter);
+    // console.log("pressedLetter", pressedLetter);
     if (pressedLetter === "enter") {
-      console.log("sdsd");
+      // console.log("sdsd");
       let validWord = await fetchData(guesses[round.current].join(""));
+
       // const validWord = guesses[round.current];
       validWord = validWord[0].word;
-      console.log(validWord, validWord.length);
+      // console.log(validWord, validWord.length);
       if (validWord.length === 5) {
         // console.log("valid", validWord[0].);
         submit();
@@ -166,6 +249,9 @@ const Board = (props) => {
     }
   };
   useEffect(() => {
+    // const
+    // setWord(validWord);
+
     const handleKeyDown = (e) => {
       // console.log(props.allkeys);
       const updatedLetter = e.key.toLowerCase();
@@ -184,12 +270,15 @@ const Board = (props) => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+
   // console.log("markers", markers);
 
   return (
     <div>
+      {showModal ? <Modal /> : ""}
+
       <div className={classes.game_section}>
-        <h1>WORDLE</h1>
+        <h1>Wordle</h1>
         <div className={classes.game_board}>
           {Object.values(guesses).map((word, wordIndex) => (
             <div className={classes.game_row} key={wordIndex}>

@@ -6,3 +6,6 @@
   align-items: center;
   justify-content: space-around;
 }
+.keyboard_row[index="1"] {
+  width: 90%;
+}
