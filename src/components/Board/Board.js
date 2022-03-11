@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import classes from "./Board.module.css";
 import Keyboard from "../Keyboard/Keyboard";
 import Modal from "../Modal/Modal";
-import Dictionary from "../../Data/Dictionary.txt";
+// import Dictionary from "../../Data/Dictionary.txt";
 // import Game?Tile from "./GameTile";
 // import GameRow from "./GameRow";
 
@@ -119,7 +119,7 @@ const Board = (props) => {
     Math.floor(Math.random() * randomWord.length)
   ].toLowerCase();
   const random = word;
-  const numGuesses = [0, 1, 2, 3, 4, 5];
+  // const numGuesses = [0, 1, 2, 3, 4, 5];
   // const [word, setWord] = useState();
   const [guesses, setGuesses] = useState({ ...newGame });
   const [markers, setMarkers] = useState({
